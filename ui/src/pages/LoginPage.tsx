@@ -3,7 +3,7 @@ import { Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } 
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../redux/reducers/configReducer';
 
-const Login = () => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const loginHandler = (action: string) => {
     const userData = {
@@ -35,4 +35,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default LoginPage;

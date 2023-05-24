@@ -8,7 +8,9 @@ const Layout = ({children}: MyComponentProps) => {
     return (
         <Grid container>
             <ResponsiveAppBar />
-            {children}
+            <Grid container m={5}>
+                {children}
+            </Grid>
         </Grid>);
 };
 

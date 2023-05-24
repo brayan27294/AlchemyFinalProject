@@ -1,34 +1,40 @@
 import React, { useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button,Tooltip, MenuItem } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
-import { RootState } from '../redux/store';
+import { RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetConfigState } from '../redux/reducers/configReducer';
+import { resetConfigState } from '../../redux/reducers/configReducer';
+import { useNavigate } from 'react-router-dom';
 
-const certifierPages = ['Certifications', 'NFT'];
-const clientPages = ['Certifications'];
+const certifierPages = [
+    { label: 'Certifications', url: '/' },
+    { label: 'NFT', url: 'nft/' }
+];
+const clientPages = [
+    { label: 'Certifications', url: '/' },
+    { label: 'My Certifications', url: '/myCertifications' },
+];
 const settings = ['Logout'];
 
 const Header = () => {
     const { isAuthenticated, userName, role } = useSelector((state: RootState) => state.config);
     const [openMenu, setOpenMenu] = useState(false);
+    const [openLogout, setOpenLogout] = useState(false);
     const dispatch = useDispatch();
-    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-    
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        setOpenMenu(false);
+        setOpenLogout(false);
         dispatch(resetConfigState());
+        navigate('/');
     };
 
     const pages = role === 'certifier' ? certifierPages : (role === 'client' ? clientPages : []);
+
+    const onNavClickHandler = (url: string) => {
+        navigate(url);
+        setOpenMenu(false);
+    }
 
     return (
         <AppBar position='static'>
@@ -38,7 +44,7 @@ const Header = () => {
                         variant='h6'
                         noWrap
                         component='a'
-                        href='/'
+                        onClick={()=>onNavClickHandler('/')}
                         sx={{
                         mr: 2,
                         display: { xs: 'none', md: 'flex' },
@@ -58,14 +64,13 @@ const Header = () => {
                         aria-label='account of current user'
                         aria-controls='menu-appbar'
                         aria-haspopup='true'
-                        onClick={handleOpenNavMenu}
+                        onClick={()=>setOpenMenu(true)}
                         color='inherit'
                         >
                             <MenuIcon />
                         </IconButton>
                         <Menu
                         id='menu-appbar'
-                        anchorEl={anchorElNav}
                         anchorOrigin={{
                             vertical: 'bottom',
                             horizontal: 'left',
@@ -75,15 +80,15 @@ const Header = () => {
                             vertical: 'top',
                             horizontal: 'left',
                         }}
-                        open={Boolean(anchorElNav)}
-                        onClose={handleCloseNavMenu}
+                        open={openMenu}
+                        onClose={()=>setOpenMenu(false)}
                         sx={{
                             display: { xs: 'block', md: 'none' },
                         }}
                         >
                         {pages.map((page) => (
-                            <MenuItem key={page} onClick={handleCloseNavMenu}>
-                            <Typography textAlign='center'>{page}</Typography>
+                            <MenuItem key={page.label} onClick={()=>onNavClickHandler(page.url)}>
+                            <Typography textAlign='center'>{page.label}</Typography>
                             </MenuItem>
                         ))}
                         </Menu>
@@ -92,7 +97,7 @@ const Header = () => {
                         variant='h5'
                         noWrap
                         component='a'
-                        href=''
+                        onClick={()=>onNavClickHandler('/')}
                         sx={{
                         mr: 2,
                         display: { xs: 'flex', md: 'none' },
@@ -109,18 +114,18 @@ const Header = () => {
                     {isAuthenticated && <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                         <Button
-                            key={page}
-                            onClick={handleCloseNavMenu}
+                            key={page.label}
+                            onClick={()=>onNavClickHandler(page.url)}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            {page}
+                            {page.label}
                         </Button>
                         ))}
                     </Box>}
 
                     {isAuthenticated && <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title='Open settings'>
-                        <IconButton onClick={()=>setOpenMenu(true)} sx={{ p: 0 }}>
+                        <IconButton onClick={()=>setOpenLogout(true)} sx={{ p: 0 }}>
                             <Avatar alt={userName} src='/static/images/avatar/2.jpg' />
                         </IconButton>
                         </Tooltip>
@@ -136,8 +141,8 @@ const Header = () => {
                             vertical: 'top',
                             horizontal: 'right',
                         }}
-                        open={openMenu}
-                        onClose={()=>setOpenMenu(false)}
+                        open={openLogout}
+                        onClose={()=>setOpenLogout(false)}
                         >
                         {settings.map((setting) => (
                             <MenuItem key={setting} onClick={handleLogout}>
