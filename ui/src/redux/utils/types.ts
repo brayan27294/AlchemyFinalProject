@@ -1,3 +1,14 @@
 export const RESET_CONFIG_STATE: string = 'RESET_CONFIG_STATE';
 export const CERTIFIER_LOGIN: string = 'CERTIFIER_LOGIN';
 export const CLIENT_LOGIN: string = 'CLIENT_LOGIN';
+
+export const SET_NFT_STATE: string = 'SET_NFT_STATE';
+export const RESET_NFT_STATE: string = 'RESET_NFT_STATE';
+
+//NFT ACTIONS
+export const FETCH_NFT_REQUEST = 'FETCH_NFT_REQUEST';
+export const FETCH_NFT_SUCCESS = 'FETCH_NFT_SUCCESS';
+export const NFT_FAILURE = 'NFT_FAILURE';
+
+export const FETCH_ALL_NFT_REQUEST = 'FETCH_ALL_NFT_REQUEST';
+export const FETCH_ALL_NFT_SUCCESS = 'FETCH_ALL_NFT_SUCCESS';

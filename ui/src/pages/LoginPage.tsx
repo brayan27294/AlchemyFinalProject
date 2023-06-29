@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../redux/reducers/configReducer';
