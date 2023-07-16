@@ -1,6 +1,13 @@
-import React from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { Close } from '@mui/icons-material';
+import React from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+} from "@mui/material";
+import { Close } from "@mui/icons-material";
 
 export interface DialogTitleProps {
   id: string;
@@ -15,46 +22,51 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
       {children}
       {onClose ? (
         <IconButton
-        aria-label="close"
-        onClick={onClose}
-        sx={{
-          position: 'absolute',
-          right: 8,
-          top: 8,
-          color: (theme) => theme.palette.grey[500]
-        }}>
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
           <Close />
-        </IconButton>)
-      : null}
+        </IconButton>
+      ) : null}
     </DialogTitle>
   );
 }
 
 type ModalLayoutProps = React.PropsWithChildren<{
-  handleClose:() => void,
-  maxWidth: string,
-  title: string
+  handleClose: () => void;
+  maxWidth: string;
+  title: string;
 }>;
 
-const ModalLayout= ({ children, handleClose, maxWidth, title }: ModalLayoutProps) => {
+const ModalLayout = ({
+  children,
+  handleClose,
+  maxWidth,
+  title,
+}: ModalLayoutProps) => {
   return (
     <Dialog
-    fullWidth
-    // @ts-expect-error autofill of arbitrary value is not handled.
-    maxWidth={maxWidth || 'sm'}
-    open={true}
-    onClose={handleClose}>
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-            {title}
-        </BootstrapDialogTitle>
-      <DialogContent>
-        {children}
-      </DialogContent>
-      <DialogActions>
+      fullWidth
+      // @ts-expect-error autofill of arbitrary value is not handled.
+      maxWidth={maxWidth || "sm"}
+      open={true}
+      onClose={handleClose}
+    >
+      <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        {title}
+      </BootstrapDialogTitle>
+      <DialogContent>{children}</DialogContent>
+      {/* <DialogActions>
         <Button onClick={handleClose}>Close</Button>
-      </DialogActions>
+      </DialogActions> */}
     </Dialog>
   );
-}
+};
 
 export default ModalLayout;

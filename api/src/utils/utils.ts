@@ -1,6 +1,4 @@
-import React from "react";
-import { Grid } from "@mui/material";
-import CertCard from "./CertCard";
+import { Certification } from "./types";
 
 const generateRandomNumber = () => {
   const randomDecimal = Math.random();
@@ -9,31 +7,23 @@ const generateRandomNumber = () => {
   return roundedNumber;
 };
 
-const MyCertifications = () => {
-  const items: any[] = [];
-  for (let i = 0; i < 5; i++) {
+export const generatesCertifications = (address: string) => {
+  const certifications = [];
+  for (let i = 0; i < 15; i++) {
     const counter = generateRandomNumber();
-    const certification = {
+    const certification: Certification = {
       name: `Certification Name ${i + 1}`,
       description: `Certification Description ${i + 1}`,
-      requirements: new Array(counter),
+      nftUrl: "",
+      requirements: [],
+      address,
     };
     let initial = 0;
     while (initial <= counter) {
       certification.requirements.push(`Requirement ${initial + 1}`);
       initial++;
     }
-    items.push(
-      <CertCard key={`certCard_${i}`} certification={certification} />
-    );
+    certifications.push(certification);
   }
-  return (
-    <Grid item xs={12}>
-      <Grid container spacing={4}>
-        {items}
-      </Grid>
-    </Grid>
-  );
+  return certifications;
 };
-
-export default MyCertifications;

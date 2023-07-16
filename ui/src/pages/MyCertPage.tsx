@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Grid } from '@mui/material';
-import MyCertifications from '../components/Certifications/MyCertifications';
+import * as React from "react";
+import { Grid } from "@mui/material";
+import MyCertifications from "../components/Certifications/MyCertifications";
 
 const MyCertPage = () => {
   //Load certifications
@@ -9,6 +9,6 @@ const MyCertPage = () => {
       <MyCertifications />
     </Grid>
   );
-}
+};
 
 export default MyCertPage;
