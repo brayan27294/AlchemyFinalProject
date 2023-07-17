@@ -8,6 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { createCertification } from "../../redux/actions/certificationActions";
+import { Certification } from "../../utils/types";
 
 const availableNFTs = [
   {
@@ -33,7 +37,12 @@ const availableNFTs = [
 ];
 
 const CreateCertForm = () => {
+  const { address } = useSelector((state: RootState) => state.config);
+  const dispatch = useDispatch();
   const [requirements, setRequirements] = useState<String[]>([]);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const descriptionInputRef = useRef<HTMLInputElement>(null);
+  const nftURLInputRef = useRef<HTMLSelectElement>(null);
   const requirementInputRef = useRef<HTMLInputElement>(null);
 
   const handleAddRequirement = () => {
@@ -46,16 +55,31 @@ const CreateCertForm = () => {
 
   const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
+    const certification: Certification = {
+      name: nameInputRef?.current?.value || "",
+      description: nameInputRef?.current?.value || "",
+      nftUrl: nftURLInputRef?.current?.value || "",
+      requirements,
+      address,
+    };
+    dispatch(createCertification(certification, address));
   };
 
   return (
     <form onSubmit={onSubmitHandler}>
-      <TextField id="standard-name" label="Name" variant="standard" fullWidth />
+      <TextField
+        id="standard-name"
+        label="Name"
+        variant="standard"
+        fullWidth
+        inputRef={nameInputRef}
+      />
       <TextField
         id="standard-multiline-description"
         label="Description"
         multiline
         rows={4}
+        inputRef={descriptionInputRef}
         variant="standard"
         fullWidth
       />
@@ -66,6 +90,7 @@ const CreateCertForm = () => {
         SelectProps={{
           native: true,
         }}
+        inputRef={nftURLInputRef}
         variant="standard"
         fullWidth
       >
@@ -107,7 +132,9 @@ const CreateCertForm = () => {
           ))}
         </Grid>
         <Grid item xs={12} justifyContent="flex-start">
-          <Button type="submit">Create</Button>
+          <Button type="submit" variant="outlined" color="success">
+            Create
+          </Button>
         </Grid>
       </Grid>
     </form>

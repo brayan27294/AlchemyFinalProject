@@ -1,11 +1,11 @@
-import express, { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import { Certification } from "../utils/types";
 import { generatesCertifications } from "../utils/utils";
 
 const certifications: Certification[] = [];
 
 class CertificationRoute {
-  public router = express.Router();
+  public router: Router = Router();
 
   constructor() {
     this.initializeRoutes();
@@ -32,8 +32,8 @@ class CertificationRoute {
 
     this.router.post("/create", (req: Request, res: Response) => {
       const certification: Certification = req.body;
-      const result = certifications.push(certification);
-      res.status(result);
+      certifications.push(certification);
+      res.status(200).send({ result: "success" });
     });
   }
 

@@ -48,17 +48,20 @@ export const fetchCertifications = (address: string): RSAAAction => ({
 });
 
 export const createCertification = (
-  certification: Certification
+  certification: Certification,
+  address: String
 ): RSAAAction => ({
   [RSAA]: {
     endpoint: `${API_URL}/certification/create`,
     method: "POST",
-    body: JSON.stringify({ certification }),
+    body: JSON.stringify(certification),
+    headers: { 'Content-Type': 'application/json' },
     types: [
       CREATE_CERTIFICATION_REQUEST,
       {
         type: CREATE_CERTIFICATION_SUCCESS,
         payload: handleResponse,
+        meta: { address },
       },
       { type: CERTIFICATION_FAILURE, payload: handleError },
     ],

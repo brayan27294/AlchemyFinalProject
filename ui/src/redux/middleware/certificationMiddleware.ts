@@ -1,9 +1,12 @@
+import { fetchCertifications } from "../actions/certificationActions";
 import { setCertificationState } from "../reducers/certificationReducer";
+import { setModalState } from "../reducers/modalReducer";
 import { ReduxAction } from "../utils/constants";
 import {
   FETCH_ALL_CERTIFICATIONS_SUCCESS,
   FETCH_CERTIFICATION_SUCCESS,
   CERTIFICATION_FAILURE,
+  CREATE_CERTIFICATION_SUCCESS,
 } from "../utils/types";
 
 export const certificationMiddleware =
@@ -20,6 +23,10 @@ export const certificationMiddleware =
         break;
       case FETCH_ALL_CERTIFICATIONS_SUCCESS:
         dispatch(setCertificationState({ certifications: action.payload }));
+        break;
+      case CREATE_CERTIFICATION_SUCCESS:
+        dispatch(setModalState({ isCreateCertOpen: false }));
+        dispatch(fetchCertifications(action.meta.address));
         break;
       default:
         break;

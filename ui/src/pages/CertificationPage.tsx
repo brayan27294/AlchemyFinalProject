@@ -6,27 +6,33 @@ import CreateCertForm from "../components/Certifications/CreateCertForm";
 import ModalLayout from "../components/Common/ModalLayout";
 import ListCertifications from "../components/Certifications/ListCertifications";
 import { fetchCertifications } from "../redux/actions/certificationActions";
+import { setModalState } from "../redux/reducers/modalReducer";
 
 const CertificationPage = () => {
   const { address } = useSelector((state: RootState) => state.config);
+  const { isCreateCertOpen } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
-  const [openModal, setOpenModal] = useState(false);
   useEffect(() => {
     if (address) {
       dispatch(fetchCertifications(address));
     }
   }, [address, dispatch]);
+
+  const handleModalCreate = (isOpen: boolean) => {
+    dispatch(setModalState({ isCreateCertOpen: isOpen }));
+  };
+
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sx={{ textAlign: "start" }}>
-        <Button variant="outlined" onClick={() => setOpenModal(true)}>
+        <Button variant="outlined" onClick={() => handleModalCreate(true)}>
           Create
         </Button>
       </Grid>
       <ListCertifications />
-      {openModal && (
+      {isCreateCertOpen && (
         <ModalLayout
-          handleClose={() => setOpenModal(false)}
+          handleClose={() => handleModalCreate(false)}
           maxWidth="sm"
           title="Create New Certification"
         >
