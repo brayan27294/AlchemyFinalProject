@@ -3,10 +3,12 @@ import { SET_MODAL_STATE, RESET_MODAL_STATE } from "../utils/types";
 
 interface ModalState {
   isCreateCertOpen: boolean;
+  isCreateNftOpen: boolean;
 }
 
 const initialState: ModalState = {
   isCreateCertOpen: false,
+  isCreateNftOpen: false,
 };
 
 export const setModalState = (payload: any) => {
@@ -21,7 +23,7 @@ export default function config(state = initialState, action: ReduxAction) {
   switch (action.type) {
     case SET_MODAL_STATE:
     case RESET_MODAL_STATE:
-      return action.payload;
+      return { ...state, ...action.payload };
     default:
       return state;
   }

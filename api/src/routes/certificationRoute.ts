@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { Certification } from "../utils/types";
-import { generatesCertifications } from "../utils/utils";
+import { generateRandomId, generatesCertifications } from "../utils/utils";
 
 const certifications: Certification[] = [];
 
@@ -32,7 +32,7 @@ class CertificationRoute {
 
     this.router.post("/create", (req: Request, res: Response) => {
       const certification: Certification = req.body;
-      certifications.push(certification);
+      certifications.push({ ...certification, id: generateRandomId() });
       res.status(200).send({ result: "success" });
     });
   }

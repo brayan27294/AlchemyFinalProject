@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 // import { ethers } from "hardhat";
 import CertificationRoute from "./routes/certificationRoute";
+import NFTRoute from "./routes/nftsRoute";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -22,8 +23,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Initialize your route class
 const certificationRoute = new CertificationRoute();
+const nftRoute = new NFTRoute();
 
 app.use("/certification", certificationRoute.router);
+app.use("/nft", nftRoute.router);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

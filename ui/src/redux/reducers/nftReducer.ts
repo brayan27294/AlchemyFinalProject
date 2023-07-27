@@ -1,12 +1,17 @@
 import { ReduxAction } from "../utils/constants";
-import { SET_NFT_STATE, RESET_NFT_STATE } from "../utils/types";
+import {
+  SET_NFT_STATE,
+  RESET_NFT_STATE,
+} from "../utils/types";
 
 interface ConfigState {
-  currentNFT: string;
+  currentNft: any;
+  nfts: any[];
 }
 
 const initialState: ConfigState = {
-  currentNFT: "",
+  currentNft: {},
+  nfts: [],
 };
 
 export const setNFTState = (payload: any) => {

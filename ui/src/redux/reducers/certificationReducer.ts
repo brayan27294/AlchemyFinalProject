@@ -18,7 +18,7 @@ export const setCertificationState = (payload: any) => {
   return { type: SET_CERTIFICATION_STATE, payload };
 };
 
-export const resetNFTState = () => {
+export const resetCertificationState = () => {
   return { type: RESET_CERTIFICATION_STATE, payload: initialState };
 };
 

@@ -23,6 +23,7 @@ import {
 import { IconButtonProps } from "@mui/material/IconButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { Certification } from "../../utils/types";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -40,11 +41,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 interface ICertCardProps {
-  certification: {
-    name: string;
-    description: string;
-    requirements: string[];
-  };
+  certification: Certification;
   editHandler?: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -68,9 +65,7 @@ const CertCard = ({ certification, editHandler }: ICertCardProps) => {
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.{certification.description}
+            {certification.description}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
