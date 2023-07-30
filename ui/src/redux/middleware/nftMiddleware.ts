@@ -7,6 +7,7 @@ import {
   FETCH_NFT_SUCCESS,
   NFT_FAILURE,
   CREATE_NFT_SUCCESS,
+  FETCH_AVAILABLE_NFTS_SUCCESS,
 } from "../utils/types";
 
 export const nftMiddleware =
@@ -22,6 +23,7 @@ export const nftMiddleware =
         dispatch(setNFTState({ currentNft: action.payload }));
         break;
       case FETCH_ALL_NFTS_SUCCESS:
+      case FETCH_AVAILABLE_NFTS_SUCCESS:
         dispatch(setNFTState({ nfts: action.payload }));
         break;
       case CREATE_NFT_SUCCESS:

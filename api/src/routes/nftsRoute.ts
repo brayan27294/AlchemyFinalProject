@@ -3,7 +3,7 @@ import { NFT } from "../utils/types";
 import { generateRandomId } from "../utils/utils";
 import { createNFT } from "../utils/nftUtils";
 
-const nftList: NFT[] = [];
+export const nftList: NFT[] = [];
 
 class NFTRoute {
   public router: Router = Router();
@@ -24,6 +24,17 @@ class NFTRoute {
       const result = nftList.filter((nft) => nft.ownerAddress === address);
       res.send(result);
     });
+
+    this.router.get(
+      "/fetchAvailableNfts/:address",
+      (req: Request, res: Response) => {
+        const address = req.params.address;
+        const result = nftList.filter(
+          (nft) => nft.ownerAddress === address && !nft.certificationID
+        );
+        res.send(result);
+      }
+    );
 
     this.router.post("/create", async (req: Request, res: Response) => {
       const newNft: NFT = req.body;

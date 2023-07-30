@@ -5,6 +5,7 @@ export interface Certification {
   nftUrl: String;
   requirements: String[];
   address: String;
+  nftId?: String;
 }
 
 export interface UserDataNFT {
@@ -19,5 +20,6 @@ export interface NFT {
   nftUrl: String;
   ownerAddress: String;
   nftAddress: String;
-  owners: UserDataNFT;
+  owners: UserDataNFT[];
+  certificationID?: String;
 }

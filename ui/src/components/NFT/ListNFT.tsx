@@ -3,15 +3,15 @@ import { Grid } from "@mui/material";
 import NFTCard from "./NFTCard";
 import ModalLayout from "../Common/ModalLayout";
 import CreateNFTForm from "./CreateNFTForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const ListNFTs = () => {
   const [openModal, setOpenModal] = useState(false);
-  const items: any[] = [];
-  for (let i = 0; i < 8; i++) {
-    const nft = {
-      name: `NFT Name ${i + 1}`,
-      description: `NFT Description ${i + 1}`,
-    };
+  const { nfts } = useSelector((state: RootState) => state.nft);
+  const items = [];
+  for (let i = 0; i < nfts.length; i++) {
+    const nft = nfts[i];
     items.push(
       <NFTCard key={`nftCard_${i}`} nft={nft} editHandler={setOpenModal} />
     );

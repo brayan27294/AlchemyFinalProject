@@ -12,12 +12,10 @@ import {
 import { Edit as EditIcon } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { NFT } from "../../utils/types";
 
 interface INFTCardProps {
-  nft: {
-    name: string;
-    description: string;
-  };
+  nft: NFT;
   editHandler: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -26,7 +24,7 @@ const NFTCard = ({ nft, editHandler }: INFTCardProps) => {
   return (
     <Grid item>
       <Card sx={{ maxWidth: 345 }}>
-        <CardHeader title={nft.name} />
+        <CardHeader title={`${nft.name} (${nft.symbol})`} />
         <CardMedia
           component="img"
           height="194"
@@ -35,9 +33,7 @@ const NFTCard = ({ nft, editHandler }: INFTCardProps) => {
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.{nft.description}
+            {nft.nftUrl}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

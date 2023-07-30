@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { Certification } from "../utils/types";
 import { generateRandomId, generatesCertifications } from "../utils/utils";
 
-const certifications: Certification[] = [];
+export const certifications: Certification[] = [];
 
 class CertificationRoute {
   public router: Router = Router();

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract MyNFT is ERC721, ERC721URIStorage, Ownable {
+contract MyNFT is ERC165, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -26,15 +26,13 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
     }
 
     // The following functions are overrides required by Solidity.
-    function _burn(
-        uint256 tokenId
-    ) internal override(ERC721, ERC721URIStorage) {
+    function _burn(uint256 tokenId) internal override(ERC721URIStorage) {
         super._burn(tokenId);
     }
 
     function tokenURI(
         uint256 tokenId
-    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
+    ) public view override(ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
     }
 
@@ -45,5 +43,12 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
         uint256
     ) internal view override(ERC721) {
         require(!blocked[tokenId], "Cannot transfer - currently locked");
+    }
+
+    // Override supportsInterface function to resolve the conflict
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721URIStorage, ERC165) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 }

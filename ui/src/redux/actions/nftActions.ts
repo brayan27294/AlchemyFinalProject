@@ -7,6 +7,8 @@ import {
   NFT_FAILURE,
   CREATE_NFT_REQUEST,
   CREATE_NFT_SUCCESS,
+  FETCH_AVAILABLE_NFTS_REQUEST,
+  FETCH_AVAILABLE_NFTS_SUCCESS,
 } from "../utils/types";
 import { handleError, handleResponse } from "../utils/helper";
 import { NFT } from "../../utils/types";
@@ -36,6 +38,21 @@ export const fetchNFTs = (address: string): RSAAAction => ({
       FETCH_ALL_NFTS_REQUEST,
       {
         type: FETCH_ALL_NFTS_SUCCESS,
+        payload: handleResponse,
+      },
+      { type: NFT_FAILURE, payload: handleError },
+    ],
+  },
+});
+
+export const fetchAvailableNFTs = (address: string): RSAAAction => ({
+  [RSAA]: {
+    endpoint: `${API_URL}/nft/fetchAvailableNfts/${address}`,
+    method: "GET",
+    types: [
+      FETCH_AVAILABLE_NFTS_REQUEST,
+      {
+        type: FETCH_AVAILABLE_NFTS_SUCCESS,
         payload: handleResponse,
       },
       { type: NFT_FAILURE, payload: handleError },

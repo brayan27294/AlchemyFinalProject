@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --ignore-watch node_modules src/index.ts",
+    "hardhat-compile": "npx hardhat compile",
     "hardhat-test": "npx hardhat test",
     "build": "tsc"
   },

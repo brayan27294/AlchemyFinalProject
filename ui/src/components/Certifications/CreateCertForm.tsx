@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -11,39 +11,24 @@ import { Add } from "@mui/icons-material";
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { createCertification } from "../../redux/actions/certificationActions";
-import { Certification } from "../../utils/types";
-
-const availableNFTs = [
-  {
-    value: "0 ",
-    label: "No NFT",
-  },
-  {
-    value: "nft1",
-    label: "NFT 1",
-  },
-  {
-    value: "nft2",
-    label: "NFT 2",
-  },
-  {
-    value: "nft3",
-    label: "NFT 3",
-  },
-  {
-    value: "nft4",
-    label: "NFT 4",
-  },
-];
+import { Certification, NFT } from "../../utils/types";
+import { fetchAvailableNFTs } from "../../redux/actions/nftActions";
 
 const CreateCertForm = () => {
   const { address } = useSelector((state: RootState) => state.config);
+  const { nfts: availableNFTs } = useSelector((state: RootState) => state.nft);
   const dispatch = useDispatch();
   const [requirements, setRequirements] = useState<String[]>([]);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLInputElement>(null);
   const nftURLInputRef = useRef<HTMLSelectElement>(null);
   const requirementInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (address) {
+      dispatch(fetchAvailableNFTs(address));
+    }
+  }, [address, dispatch]);
 
   const handleAddRequirement = () => {
     if (requirementInputRef?.current?.value) {
@@ -94,9 +79,9 @@ const CreateCertForm = () => {
         variant="standard"
         fullWidth
       >
-        {availableNFTs.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+        {availableNFTs.map((option: NFT) => (
+          <option key={`key_${option?.id}`} value={`${option.id}`}>
+            {`${option.name} (${option.symbol})`}
           </option>
         ))}
       </TextField>
