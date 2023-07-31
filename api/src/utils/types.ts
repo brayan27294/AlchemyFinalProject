@@ -7,18 +7,12 @@ export interface Certification {
   requirements: String[];
 }
 
-export interface UserDataNFT {
-  tokenId: Number;
-  userAddress: String;
-}
-
 export interface NFT {
-  id: String;
+  nftId?: String;
+  nftAddress?: String;
+  nftOwnerAddress: String;
   name: String;
   symbol: String;
   nftUrl: String;
-  ownerAddress: String;
-  nftAddress: String;
-  owners: UserDataNFT[];
-  certificationID?: String;
+  associateAccounts: String[];
 }

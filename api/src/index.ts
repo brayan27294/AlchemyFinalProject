@@ -7,6 +7,7 @@ import NFTRoute from "./routes/nftsRoute";
 import {
   deployCertificateManagerContract,
   deployMyCertificateContract,
+  deployMyNFTFactoryContract,
 } from "./utils/contractUtils";
 
 dotenv.config();
@@ -20,10 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 const initApp = async () => {
   //Deploy My Certificate and Certificate Manager Smart Contracts
   const myCertificateContract = await deployMyCertificateContract();
+  const myNFTFactoryContract = await deployMyNFTFactoryContract();
   const certificateManagerContract = await deployCertificateManagerContract();
 
   const certificationRoute = new CertificationRoute(myCertificateContract);
-  const nftRoute = new NFTRoute();
+  const nftRoute = new NFTRoute(myNFTFactoryContract);
 
   app.use("/certification", certificationRoute.router);
   app.use("/nft", nftRoute.router);

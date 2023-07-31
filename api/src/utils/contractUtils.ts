@@ -19,6 +19,11 @@ export const deployMyCertificateContract = async () => {
   return MyCertificate.deploy();
 };
 
+export const deployMyNFTFactoryContract = async () => {
+  const MyNFTFactory = await ethers.getContractFactory("MyNFTFactory");
+  return MyNFTFactory.deploy();
+};
+
 export const deployCertificateManagerContract = async () => {
   const CertificateManager = await ethers.getContractFactory(
     "CertificateManager"

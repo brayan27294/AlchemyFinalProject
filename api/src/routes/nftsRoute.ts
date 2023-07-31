@@ -1,53 +1,71 @@
 import { Request, Response, Router } from "express";
 import { NFT } from "../utils/types";
-import { generateRandomId } from "../utils/utils";
+import { generateRandomId, mapStructArrayToObjArray } from "../utils/utils";
 import { createNFT } from "../utils/contractUtils";
 
 export const nftList: NFT[] = [];
 
 class NFTRoute {
   public router: Router = Router();
+  private myNFTFactoryContract: any;
 
-  constructor() {
+  constructor(_myNFTFactoryContract: any) {
+    this.myNFTFactoryContract = _myNFTFactoryContract;
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
     this.router.get("/fetchNft/:id", (req: Request, res: Response) => {
       const id = req.params.id;
-      const result = nftList.find((nft) => nft.id === id);
-      res.send(result);
-    });
-
-    this.router.get("/fetchNfts/:address", (req: Request, res: Response) => {
-      const address = req.params.address;
-      const result = nftList.filter((nft) => nft.ownerAddress === address);
+      const result = nftList.find((nft) => nft.nftId === id);
       res.send(result);
     });
 
     this.router.get(
-      "/fetchAvailableNfts/:address",
-      (req: Request, res: Response) => {
+      "/fetchNfts/:address",
+      async (req: Request, res: Response) => {
         const address = req.params.address;
-        const result = nftList.filter(
-          (nft) => nft.ownerAddress === address && !nft.certificationID
-        );
-        res.send(result);
+        const result = await this.myNFTFactoryContract.getNFTByOwner(address);
+        const finalResult = mapStructArrayToObjArray(result, [
+          "nftId",
+          "nftAddress",
+          "nftOwner",
+          "name",
+          "symbol",
+          "nftUrl",
+          "associateAccounts",
+        ]);
+        res.send(finalResult);
+      }
+    );
+
+    this.router.get(
+      "/fetchAvailableNfts/:address",
+      async (req: Request, res: Response) => {
+        const address = req.params.address;
+        const result = await this.myNFTFactoryContract.getNFTByOwner(address);
+        const finalResult = mapStructArrayToObjArray(result, [
+          "nftId",
+          "nftAddress",
+          "nftOwner",
+          "name",
+          "symbol",
+          "nftUrl",
+          "associateAccounts",
+        ]);
+        res.send(finalResult);
       }
     );
 
     this.router.post("/create", async (req: Request, res: Response) => {
       const newNft: NFT = req.body;
-      const myNFTContract = await createNFT(
+      await this.myNFTFactoryContract.deployNFT(
+        newNft.nftOwnerAddress,
         newNft.name,
         newNft.symbol,
-        newNft.nftUrl
+        newNft.nftUrl,
+        [newNft.nftOwnerAddress]
       );
-      nftList.push({
-        ...newNft,
-        id: generateRandomId(),
-        nftAddress: myNFTContract.address,
-      });
       res.status(200).send({ result: "success" });
     });
   }

@@ -89,7 +89,7 @@ const CreateCertForm = () => {
         fullWidth
       >
         {nftsOptions.map((option: NFT) => (
-          <option key={`key_${option?.id}`} value={`${option.id}`}>
+          <option key={`key_${option?.nftId}`} value={`${option.nftId}`}>
             {`${option.name} (${option.symbol})`}
           </option>
         ))}

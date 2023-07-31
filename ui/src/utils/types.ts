@@ -13,11 +13,11 @@ export interface UserDataNFT {
 }
 
 export interface NFT {
-  id?: String;
+  nftId?: String;
+  nftAddress?: String;
+  nftOwnerAddress: String;
   name: String;
   symbol: String;
   nftUrl: String;
-  ownerAddress: String;
-  nftAddress?: String;
-  owners: UserDataNFT[];
+  associateAccounts: String[];
 }

@@ -7,8 +7,8 @@ class CertificationRoute {
   private myCertificateContract: any;
 
   constructor(_myCertificateContract: any) {
-    this.initializeRoutes();
     this.myCertificateContract = _myCertificateContract;
+    this.initializeRoutes();
   }
 
   private initializeRoutes() {

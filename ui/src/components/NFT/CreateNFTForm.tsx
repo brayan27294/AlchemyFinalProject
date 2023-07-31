@@ -18,8 +18,8 @@ const CreateNFTForm = () => {
       name: nameInputRef?.current?.value || "",
       symbol: symbolInputRef?.current?.value || "",
       nftUrl: nftUrlInputRef?.current?.value || "",
-      ownerAddress: address,
-      owners: [{ tokenId: 0, userAddress: address }],
+      nftOwnerAddress: address,
+      associateAccounts: [address],
     };
     dispatch(createNFT(nft, address));
   };
