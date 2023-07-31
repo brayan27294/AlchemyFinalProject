@@ -16,12 +16,12 @@ import { fetchAvailableNFTs } from "../../redux/actions/nftActions";
 
 const CreateCertForm = () => {
   const { address } = useSelector((state: RootState) => state.config);
-  const { nfts: availableNFTs } = useSelector((state: RootState) => state.nft);
+  const { nfts } = useSelector((state: RootState) => state.nft);
   const dispatch = useDispatch();
   const [requirements, setRequirements] = useState<String[]>([]);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLInputElement>(null);
-  const nftURLInputRef = useRef<HTMLSelectElement>(null);
+  const associateNFTInputRef = useRef<HTMLSelectElement>(null);
   const requirementInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -42,13 +42,22 @@ const CreateCertForm = () => {
     e.preventDefault();
     const certification: Certification = {
       name: nameInputRef?.current?.value || "",
-      description: nameInputRef?.current?.value || "",
-      nftUrl: nftURLInputRef?.current?.value || "",
+      description: descriptionInputRef?.current?.value || "",
+      associateNFT: associateNFTInputRef?.current?.value || "",
       requirements,
-      address,
+      certifier: address,
     };
     dispatch(createCertification(certification, address));
   };
+
+  const nftsOptions = [
+    {
+      id: "0x0000000000000000000000000000000000000000",
+      name: "No NFT Selected",
+      symbol: "NA",
+    },
+    ...nfts,
+  ];
 
   return (
     <form onSubmit={onSubmitHandler}>
@@ -71,15 +80,15 @@ const CreateCertForm = () => {
       <TextField
         id="standard-select-options"
         select
-        label="Available NFTs"
+        label="Associate NFTs"
         SelectProps={{
           native: true,
         }}
-        inputRef={nftURLInputRef}
+        inputRef={associateNFTInputRef}
         variant="standard"
         fullWidth
       >
-        {availableNFTs.map((option: NFT) => (
+        {nftsOptions.map((option: NFT) => (
           <option key={`key_${option?.id}`} value={`${option.id}`}>
             {`${option.name} (${option.symbol})`}
           </option>

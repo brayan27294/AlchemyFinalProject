@@ -1,10 +1,10 @@
 export interface Certification {
-  id?: String;
+  certificateId?: String;
+  certifier: String;
   name: String;
   description: String;
-  nftUrl: String;
+  associateNFT: String;
   requirements: String[];
-  address: String;
 }
 
 export interface UserDataNFT {

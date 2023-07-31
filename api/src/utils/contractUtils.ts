@@ -13,3 +13,15 @@ export const createNFT = async (
   await myNFTContract.safeMint(signers[0].address, nftUrl);
   return myNFTContract;
 };
+
+export const deployMyCertificateContract = async () => {
+  const MyCertificate = await ethers.getContractFactory("MyCertificate");
+  return MyCertificate.deploy();
+};
+
+export const deployCertificateManagerContract = async () => {
+  const CertificateManager = await ethers.getContractFactory(
+    "CertificateManager"
+  );
+  return CertificateManager.deploy();
+};

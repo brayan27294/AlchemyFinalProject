@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { NFT } from "../utils/types";
 import { generateRandomId } from "../utils/utils";
-import { createNFT } from "../utils/nftUtils";
+import { createNFT } from "../utils/contractUtils";
 
 export const nftList: NFT[] = [];
 

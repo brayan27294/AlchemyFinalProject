@@ -15,8 +15,8 @@ const MyCertifications = () => {
     const counter = generateRandomNumber();
     const certification = {
       name: `Certification Name ${i + 1}`,
-      address: ``,
-      nftUrl: ``,
+      certifier: ``,
+      associateNFT: ``,
       description: `Certification Description ${i + 1}`,
       requirements: new Array(counter),
     };

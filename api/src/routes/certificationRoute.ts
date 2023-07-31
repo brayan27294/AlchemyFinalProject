@@ -1,14 +1,14 @@
 import { Request, Response, Router } from "express";
 import { Certification } from "../utils/types";
-import { generateRandomId, generatesCertifications } from "../utils/utils";
-
-export const certifications: Certification[] = [];
+import { mapStructArrayToObjArray } from "../utils/utils";
 
 class CertificationRoute {
   public router: Router = Router();
+  private myCertificateContract: any;
 
-  constructor() {
+  constructor(_myCertificateContract: any) {
     this.initializeRoutes();
+    this.myCertificateContract = _myCertificateContract;
   }
 
   private initializeRoutes() {
@@ -16,23 +16,33 @@ class CertificationRoute {
 
     this.router.get(
       "/fetchCertifications/:address",
-      (req: Request, res: Response) => {
+      async (req: Request, res: Response) => {
         const address = req.params.address;
-        const result = certifications.filter(
-          (certification) => certification.address === address
-        );
-        if (result.length === 0) {
-          const randomList = generatesCertifications(address);
-          certifications.push(...randomList);
-          result.push(...randomList);
-        }
-        res.send(result);
+        const result =
+          await this.myCertificateContract.getCertificationsByCertifier(
+            address
+          );
+        const finalResult = mapStructArrayToObjArray(result, [
+          "certificateId",
+          "certifier",
+          "name",
+          "description",
+          "associateNFT",
+          "requirements",
+        ]);
+        res.send(finalResult);
       }
     );
 
-    this.router.post("/create", (req: Request, res: Response) => {
+    this.router.post("/create", async (req: Request, res: Response) => {
       const certification: Certification = req.body;
-      certifications.push({ ...certification, id: generateRandomId() });
+      await this.myCertificateContract.addCertificate(
+        certification.certifier,
+        certification.name,
+        certification.description,
+        certification.associateNFT,
+        certification.requirements
+      );
       res.status(200).send({ result: "success" });
     });
   }

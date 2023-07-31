@@ -13,12 +13,12 @@ export const generatesCertifications = (address: string) => {
   for (let i = 0; i < 5; i++) {
     const counter = generateRandomNumber();
     const certification: Certification = {
-      id: generateRandomId(),
+      certificateId: generateRandomId(),
       name: `Certification Name ${i + 1}`,
       description: `Certification Description ${i + 1}`,
-      nftUrl: "",
+      associateNFT: "",
       requirements: [],
-      address,
+      certifier: address,
     };
     let initial = 0;
     while (initial <= counter) {
@@ -34,4 +34,22 @@ export const generateRandomId = (): string => {
   const randomBytes = ethers.utils.randomBytes(32);
   const id = ethers.utils.hexlify(randomBytes);
   return id;
+};
+
+export const mapStructArrayToObjArray = (
+  structArrayData: any[],
+  structProperties: string[]
+): any[] => {
+  return structArrayData.map((structData) => {
+    const structObject: any = {};
+    structData.forEach((value: any, index: number) => {
+      const propertyName = structProperties[index];
+      if (typeof value === "object" && ethers.BigNumber.isBigNumber(value)) {
+        structObject[propertyName] = value.toNumber();
+      } else {
+        structObject[propertyName] = value;
+      }
+    });
+    return structObject;
+  });
 };
