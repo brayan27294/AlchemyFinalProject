@@ -60,7 +60,12 @@ const CertCard = ({ certification, editHandler }: ICertCardProps) => {
         <CardMedia
           component="img"
           height="194"
-          image={require("../../assets/images/logo512.png")}
+          image={require(`../../assets/images/${
+            certification.associateNFT !==
+            "0x0000000000000000000000000000000000000000"
+              ? "logo512"
+              : "no-nft"
+          }.png`)}
           alt="NFT Certification Image"
         />
         <CardContent>

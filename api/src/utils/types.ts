@@ -1,5 +1,5 @@
 export interface Certification {
-  certificateId?: String;
+  certificateId?: Number;
   certifier: String;
   name: String;
   description: String;
@@ -8,11 +8,13 @@ export interface Certification {
 }
 
 export interface NFT {
-  nftId?: String;
+  nftId?: Number;
   nftAddress?: String;
   nftOwnerAddress: String;
   name: String;
   symbol: String;
   nftUrl: String;
+  isCertificateAssociate: Boolean;
+  associateCertificate: Number;
   associateAccounts: String[];
 }

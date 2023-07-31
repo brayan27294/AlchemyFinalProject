@@ -35,6 +35,11 @@ const NFTCard = ({ nft, editHandler }: INFTCardProps) => {
           <Typography variant="body2" color="text.secondary">
             {nft.nftUrl}
           </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {nft.isCertificateAssociate
+              ? "Certificate associated"
+              : "Certificate not associate"}
+          </Typography>
         </CardContent>
         <CardActions disableSpacing>
           {role === "certifier" && (

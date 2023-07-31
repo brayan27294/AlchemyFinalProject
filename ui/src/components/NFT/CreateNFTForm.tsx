@@ -19,6 +19,8 @@ const CreateNFTForm = () => {
       symbol: symbolInputRef?.current?.value || "",
       nftUrl: nftUrlInputRef?.current?.value || "",
       nftOwnerAddress: address,
+      isCertificateAssociate: false,
+      associateCertificate: 0,
       associateAccounts: [address],
     };
     dispatch(createNFT(nft, address));

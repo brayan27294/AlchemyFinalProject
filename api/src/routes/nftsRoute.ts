@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express";
 import { NFT } from "../utils/types";
-import { generateRandomId, mapStructArrayToObjArray } from "../utils/utils";
-import { createNFT } from "../utils/contractUtils";
+import { mapStructArrayToObjArray } from "../utils/utils";
 
 export const nftList: NFT[] = [];
 
@@ -16,7 +15,7 @@ class NFTRoute {
 
   private initializeRoutes() {
     this.router.get("/fetchNft/:id", (req: Request, res: Response) => {
-      const id = req.params.id;
+      const id = Number(req.params.id);
       const result = nftList.find((nft) => nft.nftId === id);
       res.send(result);
     });
@@ -33,6 +32,8 @@ class NFTRoute {
           "name",
           "symbol",
           "nftUrl",
+          "isCertificateAssociate",
+          "associateCertificate",
           "associateAccounts",
         ]);
         res.send(finalResult);
@@ -51,9 +52,11 @@ class NFTRoute {
           "name",
           "symbol",
           "nftUrl",
+          "isCertificateAssociate",
+          "associateCertificate",
           "associateAccounts",
         ]);
-        res.send(finalResult);
+        res.send(finalResult.filter((item) => !item.isCertificateAssociate));
       }
     );
 
@@ -64,6 +67,8 @@ class NFTRoute {
         newNft.name,
         newNft.symbol,
         newNft.nftUrl,
+        newNft.isCertificateAssociate,
+        newNft.associateCertificate,
         [newNft.nftOwnerAddress]
       );
       res.status(200).send({ result: "success" });

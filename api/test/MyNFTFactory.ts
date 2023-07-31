@@ -20,6 +20,8 @@ describe("MyNFTFactory test", function () {
       "Test Token",
       "TT",
       "testUri",
+      false,
+      "0",
       [signers[0].address]
     );
     await myNFTFactoryContract.deployNFT(
@@ -27,6 +29,8 @@ describe("MyNFTFactory test", function () {
       "Test Token 2",
       "T2",
       "testUri 2",
+      false,
+      "0",
       [signers[0].address]
     );
     const nftStructs = await myNFTFactoryContract.getNFTByOwner(
@@ -45,5 +49,19 @@ describe("MyNFTFactory test", function () {
       signers[0].address
     );
     expect(nftStructs[1].associateAccounts[1]).to.equal(signers[1].address);
+  });
+
+  it("Should update the associateCertificate of the first NFT of signer 1 to true", async function () {
+    await myNFTFactoryContract.updateNFTAssociateCertificate(
+      signers[0].address,
+      0,
+      true,
+      0
+    );
+    const nftStructs = await myNFTFactoryContract.getNFTByOwner(
+      signers[0].address
+    );
+    expect(nftStructs[0].associateCertificate).to.equal(0);
+    expect(nftStructs[0].isCertificateAssociate).to.true;
   });
 });

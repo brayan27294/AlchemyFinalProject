@@ -15,6 +15,8 @@ contract MyNFTFactory is Ownable {
         string name;
         string symbol;
         string nftUrl;
+        bool isCertificateAssociate;
+        uint256 associateCertificate;
         address[] associateAccounts;
     }
 
@@ -42,11 +44,24 @@ contract MyNFTFactory is Ownable {
         string nftUrl
     );
 
+    event NFTCertificateUpdated(
+        uint256 nftId,
+        address nftAddress,
+        address nftOwnerAddress,
+        string name,
+        string symbol,
+        string nftUrl,
+        bool isCertificateAssociate,
+        uint256 associateCertificate
+    );
+
     function deployNFT(
         address nftOwnerAddress,
         string memory name,
         string memory symbol,
         string memory nftUrl,
+        bool isCertificateAssociate,
+        uint256 associateCertificate,
         address[] memory initialOwner
     ) public onlyOwner {
         MyNFT nftContract = new MyNFT(name, symbol);
@@ -66,12 +81,21 @@ contract MyNFTFactory is Ownable {
             name: name,
             symbol: symbol,
             nftUrl: nftUrl,
+            isCertificateAssociate: isCertificateAssociate,
+            associateCertificate: associateCertificate,
             associateAccounts: initialOwner
         });
 
         myNFTByOwner[nftOwnerAddress].push(newNFT);
 
-        emit NFTDeployed(nftId, nftAddress, nftOwnerAddress, name, symbol, nftUrl);
+        emit NFTDeployed(
+            nftId,
+            nftAddress,
+            nftOwnerAddress,
+            name,
+            symbol,
+            nftUrl
+        );
     }
 
     function getNFTByOwner(
@@ -99,6 +123,29 @@ contract MyNFTFactory is Ownable {
             nftStruct.name,
             nftStruct.symbol,
             nftStruct.nftUrl
+        );
+    }
+
+    function updateNFTAssociateCertificate(
+        address owner,
+        uint256 nftId,
+        bool isCertificateAssociate,
+        uint256 associateCertificate
+    ) public onlyOwner {
+        MyNFTStruct memory nftStruct = myNFTByOwner[owner][nftId];
+        myNFTByOwner[owner][nftId]
+            .isCertificateAssociate = isCertificateAssociate;
+        myNFTByOwner[owner][nftId].associateCertificate = associateCertificate;
+
+        emit NFTCertificateUpdated(
+            nftId,
+            nftStruct.nftAddress,
+            owner,
+            nftStruct.name,
+            nftStruct.symbol,
+            nftStruct.nftUrl,
+            nftStruct.isCertificateAssociate,
+            nftStruct.associateCertificate
         );
     }
 }

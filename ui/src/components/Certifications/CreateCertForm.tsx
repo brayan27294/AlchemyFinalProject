@@ -52,7 +52,8 @@ const CreateCertForm = () => {
 
   const nftsOptions = [
     {
-      id: "0x0000000000000000000000000000000000000000",
+      nftId: "0",
+      nftAddress: "0x0000000000000000000000000000000000000000",
       name: "No NFT Selected",
       symbol: "NA",
     },
@@ -89,7 +90,10 @@ const CreateCertForm = () => {
         fullWidth
       >
         {nftsOptions.map((option: NFT) => (
-          <option key={`key_${option?.nftId}`} value={`${option.nftId}`}>
+          <option
+            key={`key_${option?.nftId}`}
+            value={`${option.nftId}-${option.nftAddress}`}
+          >
             {`${option.name} (${option.symbol})`}
           </option>
         ))}

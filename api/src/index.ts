@@ -24,7 +24,10 @@ const initApp = async () => {
   const myNFTFactoryContract = await deployMyNFTFactoryContract();
   const certificateManagerContract = await deployCertificateManagerContract();
 
-  const certificationRoute = new CertificationRoute(myCertificateContract);
+  const certificationRoute = new CertificationRoute(
+    myCertificateContract,
+    myNFTFactoryContract
+  );
   const nftRoute = new NFTRoute(myNFTFactoryContract);
 
   app.use("/certification", certificationRoute.router);
