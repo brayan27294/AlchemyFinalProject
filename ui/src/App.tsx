@@ -10,6 +10,7 @@ import { RootState } from "./redux/store";
 import CertificationPage from "./pages/CertificationPage";
 import NFTPage from "./pages/NFTPage";
 import MyCertPage from "./pages/MyCertPage";
+import AvailableCertificationPage from "./pages/AvailableCertificationPage";
 
 const App = () => {
   const { isAuthenticated, role } = useSelector(
@@ -28,6 +29,10 @@ const App = () => {
                 }
               />
               <Route path="/nft" element={<NFTPage />} />
+              <Route
+                path="/allCertifications"
+                element={<AvailableCertificationPage />}
+              />
             </>
           ) : (
             <>

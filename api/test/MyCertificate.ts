@@ -66,4 +66,16 @@ describe("MyCertificate test", function () {
       "0x0000000000000000000000000000000000000000"
     );
   });
+
+  it("Should get all certificates", async function () {
+    await myCertificateContract.addCertificate(
+      signers[0].address,
+      "Test 3",
+      "This is the third certificate",
+      "0x0000000000000000000000000000000000000000",
+      ["Req 1", "Req 2", "Req 3"]
+    );
+    const certificates = await myCertificateContract.getAllCertifications();
+    expect(certificates.length).to.equal(3);
+  });
 });

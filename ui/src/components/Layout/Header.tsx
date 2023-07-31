@@ -22,7 +22,10 @@ const certifierPages = [
   { label: "Certifications", url: "/" },
   { label: "NFT", url: "nft/" },
 ];
-const clientPages = [{ label: "My Certifications", url: "/" }];
+const clientPages = [
+  { label: "My Certifications", url: "/" },
+  { label: "All Certifications", url: "/allCertifications" },
+];
 const settings = ["Logout"];
 
 const Header = () => {

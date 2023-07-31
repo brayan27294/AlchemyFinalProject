@@ -7,6 +7,7 @@ import {
   FETCH_CERTIFICATION_SUCCESS,
   CERTIFICATION_FAILURE,
   CREATE_CERTIFICATION_SUCCESS,
+  FETCH_CERTIFICATIONS_BY_ADDRESS_SUCCESS,
 } from "../utils/types";
 
 export const certificationMiddleware =
@@ -22,6 +23,7 @@ export const certificationMiddleware =
         dispatch(setCertificationState({ currentCertification: {} }));
         break;
       case FETCH_ALL_CERTIFICATIONS_SUCCESS:
+      case FETCH_CERTIFICATIONS_BY_ADDRESS_SUCCESS:
         dispatch(setCertificationState({ certifications: action.payload }));
         break;
       case CREATE_CERTIFICATION_SUCCESS:

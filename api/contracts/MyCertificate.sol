@@ -5,6 +5,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract MyCertificate is Ownable {
+    using Counters for Counters.Counter;
+
     struct Certificate {
         uint256 certificateId;
         address certifier;
@@ -15,8 +17,10 @@ contract MyCertificate is Ownable {
     }
 
     mapping(address => Certificate[]) private certificates;
-    using Counters for Counters.Counter;
     mapping(address => Counters.Counter) private _totalCertificates;
+
+    Certificate[] private allCertificates;
+    Counters.Counter private _totalAllCertificates;
 
     event CertificateCreated(uint256 indexed certificateId, address certifier);
     event CertificateUpdated(uint256 indexed certificateId, address certifier);
@@ -30,6 +34,7 @@ contract MyCertificate is Ownable {
     ) public onlyOwner {
         uint256 certificateId = _totalCertificates[certifier].current();
         _totalCertificates[certifier].increment();
+        _totalAllCertificates.increment();
         Certificate memory newCertificate = Certificate({
             certificateId: certificateId,
             certifier: certifier,
@@ -40,6 +45,7 @@ contract MyCertificate is Ownable {
         });
 
         certificates[certifier].push(newCertificate);
+        allCertificates.push(newCertificate);
 
         emit CertificateCreated(certificateId, certifier);
     }
@@ -71,5 +77,9 @@ contract MyCertificate is Ownable {
         uint256 certificateId
     ) public view returns (Certificate memory) {
         return certificates[certifier][certificateId];
+    }
+
+    function getAllCertifications() public view returns (Certificate[] memory) {
+        return allCertificates;
     }
 }

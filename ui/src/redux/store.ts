@@ -5,6 +5,7 @@ import { loggingMiddleware } from "./middleware/loggingMiddleware";
 import { apiMiddleware } from "redux-api-middleware";
 import { certificationMiddleware } from "./middleware/certificationMiddleware";
 import { nftMiddleware } from "./middleware/nftMiddleware";
+import { myCertificationMiddleware } from "./middleware/myCertificationMiddleware";
 
 const middleware = [
   thunk,
@@ -12,6 +13,7 @@ const middleware = [
   loggingMiddleware,
   certificationMiddleware,
   nftMiddleware,
+  myCertificationMiddleware,
 ];
 
 const store = configureStore({

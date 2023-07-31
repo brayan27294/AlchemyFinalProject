@@ -21,6 +21,22 @@ class CertificationRoute {
     this.router.get("/", this.getHandler);
 
     this.router.get(
+      "/fetchAllCertifications",
+      async (req: Request, res: Response) => {
+        const result = await this.myCertificateContract.getAllCertifications();
+        const finalResult = mapStructArrayToObjArray(result, [
+          "certificateId",
+          "certifier",
+          "name",
+          "description",
+          "associateNFT",
+          "requirements",
+        ]);
+        res.send(finalResult);
+      }
+    );
+
+    this.router.get(
       "/fetchCertifications/:address",
       async (req: Request, res: Response) => {
         const address = req.params.address;
@@ -55,7 +71,10 @@ class CertificationRoute {
         certification.associateNFT !==
         "0x0000000000000000000000000000000000000000"
       ) {
-        const eventLogs = await readEventLogs(certificateCreatedEventDef, transactionData.hash);
+        const eventLogs = await readEventLogs(
+          certificateCreatedEventDef,
+          transactionData.hash
+        );
 
         await this.myNFTFactoryContract.updateNFTAssociateCertificate(
           certification.certifier,

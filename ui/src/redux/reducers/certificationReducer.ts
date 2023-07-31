@@ -4,12 +4,12 @@ import {
   RESET_CERTIFICATION_STATE,
 } from "../utils/types";
 
-interface ConfigState {
+interface CertificationState {
   currentCertification: any;
   certifications: any[];
 }
 
-const initialState: ConfigState = {
+const initialState: CertificationState = {
   currentCertification: {},
   certifications: [],
 };

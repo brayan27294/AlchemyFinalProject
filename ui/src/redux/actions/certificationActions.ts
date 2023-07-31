@@ -7,6 +7,8 @@ import {
   CERTIFICATION_FAILURE,
   CREATE_CERTIFICATION_REQUEST,
   CREATE_CERTIFICATION_SUCCESS,
+  FETCH_CERTIFICATIONS_BY_ADDRESS_REQUEST,
+  FETCH_CERTIFICATIONS_BY_ADDRESS_SUCCESS,
 } from "../utils/types";
 import { handleError, handleResponse } from "../utils/helper";
 import { Certification } from "../../utils/types";
@@ -32,14 +34,29 @@ export const fetchCertification = (
   },
 });
 
-export const fetchCertifications = (address: string): RSAAAction => ({
+export const fetchAllCertifications = (): RSAAAction => ({
   [RSAA]: {
-    endpoint: `${API_URL}/certification/fetchCertifications/${address}`,
+    endpoint: `${API_URL}/certification/fetchAllCertifications`,
     method: "GET",
     types: [
       FETCH_ALL_CERTIFICATIONS_REQUEST,
       {
         type: FETCH_ALL_CERTIFICATIONS_SUCCESS,
+        payload: handleResponse,
+      },
+      { type: CERTIFICATION_FAILURE, payload: handleError },
+    ],
+  },
+});
+
+export const fetchCertifications = (address: string): RSAAAction => ({
+  [RSAA]: {
+    endpoint: `${API_URL}/certification/fetchCertifications/${address}`,
+    method: "GET",
+    types: [
+      FETCH_CERTIFICATIONS_BY_ADDRESS_REQUEST,
+      {
+        type: FETCH_CERTIFICATIONS_BY_ADDRESS_SUCCESS,
         payload: handleResponse,
       },
       { type: CERTIFICATION_FAILURE, payload: handleError },
@@ -55,7 +72,7 @@ export const createCertification = (
     endpoint: `${API_URL}/certification/create`,
     method: "POST",
     body: JSON.stringify(certification),
-    headers: { 'Content-Type': 'application/json' },
+    headers: { "Content-Type": "application/json" },
     types: [
       CREATE_CERTIFICATION_REQUEST,
       {
