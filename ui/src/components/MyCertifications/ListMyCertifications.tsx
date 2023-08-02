@@ -1,18 +1,18 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import CertCard from "../Certifications/CertCard";
+import MyCertCard from "../Common/MyCertCard";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 const ListMyCertifications = () => {
-  const { certifications } = useSelector(
+  const { myCertifications } = useSelector(
     (state: RootState) => state.myCertification
   );
   const items = [];
-  for (let i = 0; i < certifications.length; i++) {
-    const certification = certifications[i];
+  for (let i = 0; i < myCertifications.length; i++) {
+    const myCertification = myCertifications[i];
     items.push(
-      <CertCard key={`certCard_${i}`} certification={certification} />
+      <MyCertCard key={`myCertCard_${i}`} myCertification={myCertification} />
     );
   }
   return (

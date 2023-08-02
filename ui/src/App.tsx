@@ -11,6 +11,7 @@ import CertificationPage from "./pages/CertificationPage";
 import NFTPage from "./pages/NFTPage";
 import MyCertPage from "./pages/MyCertPage";
 import AvailableCertificationPage from "./pages/AvailableCertificationPage";
+import ClientCertPage from "./pages/ClientCertPage";
 
 const App = () => {
   const { isAuthenticated, role } = useSelector(
@@ -32,6 +33,10 @@ const App = () => {
               <Route
                 path="/allCertifications"
                 element={<AvailableCertificationPage />}
+              />
+              <Route
+                path="/clientCertifications"
+                element={<ClientCertPage />}
               />
             </>
           ) : (

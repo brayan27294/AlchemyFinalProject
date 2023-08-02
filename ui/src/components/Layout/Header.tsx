@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 const certifierPages = [
   { label: "Certifications", url: "/" },
   { label: "NFT", url: "nft/" },
+  { label: "Client Certifications", url: "clientCertifications/" },
 ];
 const clientPages = [
   { label: "My Certifications", url: "/" },

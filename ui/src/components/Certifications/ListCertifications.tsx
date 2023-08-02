@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
-import CertCard from "./CertCard";
+import CertCard from "../Common/CertCard";
 import ModalLayout from "../Common/ModalLayout";
 import CreateCertForm from "./CreateCertForm";
 import { RootState } from "../../redux/store";

@@ -43,9 +43,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 interface ICertCardProps {
   certification: Certification;
   editHandler?: Dispatch<SetStateAction<boolean>>;
+  associateHandler?: Function;
 }
 
-const CertCard = ({ certification, editHandler }: ICertCardProps) => {
+const CertCard = ({
+  certification,
+  editHandler,
+  associateHandler,
+}: ICertCardProps) => {
   const [expanded, setExpanded] = useState(false);
   const { role } = useSelector((state: RootState) => state.config);
 
@@ -55,7 +60,7 @@ const CertCard = ({ certification, editHandler }: ICertCardProps) => {
 
   return (
     <Grid item>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 300 }}>
         <CardHeader title={certification.name} />
         <CardMedia
           component="img"
@@ -74,16 +79,23 @@ const CertCard = ({ certification, editHandler }: ICertCardProps) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          {role === "client" && (
-            <IconButton aria-label="Add">
-              <AddIcon />
-            </IconButton>
+          {role === "client" && associateHandler && (
+            <Tooltip title={"Register for this certification"}>
+              <IconButton
+                aria-label="Add"
+                onClick={() =>
+                  associateHandler(
+                    certification.certificateId,
+                    certification.certifier
+                  )
+                }
+              >
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
           )}
-          {role === "certifier" && (
-            <IconButton
-              aria-label="Edit"
-              onClick={() => (editHandler ? editHandler(true) : null)}
-            >
+          {role === "certifier" && editHandler && (
+            <IconButton aria-label="Edit" onClick={() => editHandler(true)}>
               <EditIcon />
             </IconButton>
           )}

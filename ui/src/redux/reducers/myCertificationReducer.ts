@@ -1,3 +1,4 @@
+import { MyCertification } from "../../utils/types";
 import { ReduxAction } from "../utils/constants";
 import {
   RESET_MY_CERTIFICATION_STATE,
@@ -6,12 +7,12 @@ import {
 
 interface MyCertificationState {
   currentCertification: any;
-  certifications: any[];
+  myCertifications: MyCertification[];
 }
 
 const initialState: MyCertificationState = {
   currentCertification: {},
-  certifications: [],
+  myCertifications: [],
 };
 
 export const setMyCertificationState = (payload: any) => {

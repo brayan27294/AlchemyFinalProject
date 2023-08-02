@@ -11,6 +11,7 @@ const AvailableCertificationPage = () => {
   }, [dispatch]);
   return (
     <Grid container spacing={4}>
+      <h2>Avaiable Certifications Page</h2>
       <AvailableCertifications />
     </Grid>
   );

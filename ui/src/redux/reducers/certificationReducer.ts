@@ -1,3 +1,4 @@
+import { Certification } from "../../utils/types";
 import { ReduxAction } from "../utils/constants";
 import {
   SET_CERTIFICATION_STATE,
@@ -5,13 +6,22 @@ import {
 } from "../utils/types";
 
 interface CertificationState {
-  currentCertification: any;
-  certifications: any[];
+  currentCertification: {};
+  certifications: Certification[];
 }
 
 const initialState: CertificationState = {
   currentCertification: {},
-  certifications: [],
+  certifications: [
+    {
+      certificateId: 0,
+      certifier: "574365736578dsjfhjdshgjs",
+      name: "Certificate 1",
+      description: "test certificate 1",
+      associateNFT: "0x000000000000000000",
+      requirements: ["Req 1", "Req 2", "Req 3"],
+    },
+  ],
 };
 
 export const setCertificationState = (payload: any) => {

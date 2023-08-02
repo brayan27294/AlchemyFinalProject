@@ -18,3 +18,14 @@ export interface NFT {
   associateCertificate: Number;
   associateAccounts: String[];
 }
+
+export interface MyCertification {
+  certificateId?: Number;
+  issuerCertificateId: Number;
+  recipient: String;
+  issueDate: Date;
+  issuer: String;
+  status: String;
+  isValid: Boolean;
+  certification: Certification;
+}

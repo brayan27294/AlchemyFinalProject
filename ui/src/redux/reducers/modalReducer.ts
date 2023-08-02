@@ -4,11 +4,15 @@ import { SET_MODAL_STATE, RESET_MODAL_STATE } from "../utils/types";
 interface ModalState {
   isCreateCertOpen: boolean;
   isCreateNftOpen: boolean;
+  isRegisterCertOpen: boolean;
+  isSubmitCertOpen: boolean;
 }
 
 const initialState: ModalState = {
   isCreateCertOpen: false,
   isCreateNftOpen: false,
+  isRegisterCertOpen: false,
+  isSubmitCertOpen: false,
 };
 
 export const setModalState = (payload: any) => {

@@ -32,6 +32,8 @@ const initApp = async () => {
   const nftRoute = new NFTRoute(myNFTFactoryContract);
 
   const myCertificationManagerRoute = new MyCertificationRoute(
+    myCertificateContract,
+    myNFTFactoryContract,
     certificateManagerContract
   );
 

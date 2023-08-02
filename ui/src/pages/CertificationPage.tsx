@@ -24,6 +24,7 @@ const CertificationPage = () => {
 
   return (
     <Grid container spacing={4}>
+      <h2>Certifications Page</h2>
       <Grid item xs={12} sx={{ textAlign: "start" }}>
         <Button variant="outlined" onClick={() => handleModalCreate(true)}>
           Create
