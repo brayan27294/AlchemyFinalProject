@@ -9,7 +9,7 @@ There are two top-level folders:
 1. `/ui` - contains the front-end application
 2. `/api` - contains the back-end application
 
-The API folder contains the smart contract and the hardhat logic:
+The API folder contains the smart contracts and the hardhat logic:
 
 1. `/contracts` - contains the solidity contract
 2. `/src` - contains the source code
