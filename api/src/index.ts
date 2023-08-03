@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 // import { ethers } from "hardhat";
@@ -37,6 +37,9 @@ const initApp = async () => {
     certificateManagerContract
   );
 
+  app.use("/", (req: Request, res: Response) => {
+    res.send("Hello from API");
+  });
   app.use("/certification", certificationRoute.router);
   app.use("/nft", nftRoute.router);
   app.use("/myCertification", myCertificationManagerRoute.router);
