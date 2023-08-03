@@ -19,9 +19,6 @@ export const createNFT = async (
 };
 
 export const deployMyCertificateContract = async () => {
-  const network = await ethers.getDefaultProvider().getNetwork();
-  console.log("Network name=", network.name);
-  console.log("Network chain id=", network.chainId);
   const MyCertificate = await getContractFactory("MyCertificate");
   return MyCertificate.deploy();
 };
