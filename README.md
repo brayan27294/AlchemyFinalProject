@@ -1,6 +1,11 @@
 # AlchemyFinalProject
 
-This is a Certification Dapp
+This is a Certification Dapp. This application aims to set up two basic roles (certifier and client).
+
+The certifier can create new certificates and associate NFT with each certificate.
+
+The client can see what are the available certifications from different certifiers. Select the certification that the client wants to start
+and then if the certification contains a NFT the client will receive this NFT.
 
 ## Project Layout
 
