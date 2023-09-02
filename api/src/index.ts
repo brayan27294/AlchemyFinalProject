@@ -37,12 +37,12 @@ const initApp = async () => {
     certificateManagerContract
   );
 
-  app.use("/", (req: Request, res: Response) => {
-    res.send("Hello from API");
-  });
   app.use("/certification", certificationRoute.router);
   app.use("/nft", nftRoute.router);
   app.use("/myCertification", myCertificationManagerRoute.router);
+  app.use("/healthCheck", (req: Request, res: Response) => {
+    res.send("API Running");
+  });
 
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

@@ -5,7 +5,7 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: "0.8.18",
-  defaultNetwork: "sepolia",
+  defaultNetwork: "hardhat",
   networks: {
     hardhat: {},
     sepolia: {
