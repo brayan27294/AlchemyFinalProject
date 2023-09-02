@@ -29,7 +29,7 @@ const initialState: MyCertification = {
 const ListClientCertifications = () => {
   const [selectedCertification, setSelectedCertification] =
     useState<MyCertification>(initialState);
-  const { myCertifications } = useSelector(
+  const { issuerCertifications } = useSelector(
     (state: RootState) => state.myCertification
   );
   const { isSubmitCertOpen } = useSelector((state: RootState) => state.modal);
@@ -47,8 +47,8 @@ const ListClientCertifications = () => {
   };
 
   const items = [];
-  for (let i = 0; i < myCertifications.length; i++) {
-    const myCertification = myCertifications[i];
+  for (let i = 0; i < issuerCertifications.length; i++) {
+    const myCertification = issuerCertifications[i];
     items.push(
       <MyCertCard
         key={`myCertCard_${i}`}

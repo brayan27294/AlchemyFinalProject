@@ -8,11 +8,13 @@ import {
 interface MyCertificationState {
   currentCertification: any;
   myCertifications: MyCertification[];
+  issuerCertifications: MyCertification[];
 }
 
 const initialState: MyCertificationState = {
   currentCertification: {},
   myCertifications: [],
+  issuerCertifications: [],
 };
 
 export const setMyCertificationState = (payload: any) => {

@@ -4,6 +4,7 @@ import { setMyCertificationState } from "../reducers/myCertificationReducer";
 import { ReduxAction } from "../utils/constants";
 import {
   FETCH_ALL_MY_CERTIFICATIONS_SUCCESS,
+  FETCH_ISSUER_MY_CERTIFICATIONS_SUCCESS,
   ISSUE_MY_CERTIFICATIONS_SUCCESS,
   MY_CERTIFICATION_FAILURE,
   REGISTER_MY_CERTIFICATIONS_SUCCESS,
@@ -20,6 +21,11 @@ export const myCertificationMiddleware =
         break;
       case FETCH_ALL_MY_CERTIFICATIONS_SUCCESS:
         dispatch(setMyCertificationState({ myCertifications: action.payload }));
+        break;
+      case FETCH_ISSUER_MY_CERTIFICATIONS_SUCCESS:
+        dispatch(
+          setMyCertificationState({ issuerCertifications: action.payload })
+        );
         break;
       case REGISTER_MY_CERTIFICATIONS_SUCCESS:
         dispatch(setModalState({ isRegisterCertOpen: false }));
