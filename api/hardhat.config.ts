@@ -8,10 +8,10 @@ const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {},
-    sepolia: {
-      url: `${process.env.SEPOLIA_URL}`,
-      accounts: [`0x${process.env.PRIVATE_KEY}`],
-    },
+    // sepolia: {
+    //   url: `${process.env.SEPOLIA_URL}`,
+    //   accounts: [`0x${process.env.PRIVATE_KEY}`],
+    // },
   },
 };
 
